@@ -58,13 +58,14 @@ namespace FT01
             ////Exercicio G
             //string[] teste2 = { "teste", "papel", "patos", "quack" };
             //Console.WriteLine("Resultado: " + exercicioG(teste2));
-            //Exercicio H
-            string teste;
-            Console.Write("Insira a frase:");
-            teste = Console.ReadLine();
-            teste=teste.Replace('v', 'b').Replace('V', 'B');
-            teste=teste.Replace("ão", "om").Replace("ÃO", "OM");
-            Console.WriteLine(teste);
+            ////Exercicio H
+            //string teste;
+            //Console.Write("Insira a frase:");
+            //teste = Console.ReadLine();
+            //teste=teste.Replace('v', 'b').Replace('V', 'B');
+            //teste=teste.Replace("ão", "om").Replace("ÃO", "OM");
+            //Console.WriteLine(teste);
+            //Exercicio I
 
             Console.ReadKey();
         }
