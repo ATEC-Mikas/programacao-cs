@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FT02", "FT02\FT02.csproj", "{83267799-B716-4069-9344-DFC9F9268068}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83267799-B716-4069-9344-DFC9F9268068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83267799-B716-4069-9344-DFC9F9268068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83267799-B716-4069-9344-DFC9F9268068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83267799-B716-4069-9344-DFC9F9268068}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B699048-E8CC-46FD-8473-6F820557F251}
+	EndGlobalSection
+EndGlobal
