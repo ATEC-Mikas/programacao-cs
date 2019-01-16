@@ -12,6 +12,27 @@ namespace FT03
         private int min;
         private int seg;
         
+        public Hora()
+        {
+            hora = 0;
+            min = 0;
+            seg = 0;
+        }
+        public Hora(int h,int m,int s)
+        {
+            if (!setHora(h))
+                hora = 0;
+            if (!setMin(m))
+                min = 0;
+            if (!setSeg(s))
+                seg = 0;
+        }
+        public Hora(Hora h)
+        {
+            hora = h.hora;
+            min = h.min;
+            seg = h.seg;
+        }
         public int getHora()
         {
             return hora;

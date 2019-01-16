@@ -10,7 +10,9 @@ namespace FT03
     {
         static void Main(string[] args)
         {
+            Data d1=new Data();
             
+            Console.WriteLine(d1.toString());
 
 
             Console.ReadKey();

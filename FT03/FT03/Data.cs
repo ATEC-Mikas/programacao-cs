@@ -20,6 +20,7 @@ namespace FT03
             mes = 1;
             ano = 2000;
             diasem = "segunda-feira";
+            hora = new Hora();
         }
         public Data(int dia,int mes,int ano, int diasem)
         {
