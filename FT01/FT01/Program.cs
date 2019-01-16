@@ -150,6 +150,16 @@ namespace FT01
             //    }
             //}
 
+            //Exercicio N
+            string frase;
+            Console.WriteLine("Digite a sua frase:");
+            frase = Console.ReadLine();
+            Console.WriteLine(frase.Reverse().ToArray());
+            if (frase.SequenceEqual(frase.Reverse()))
+                Console.WriteLine("É um palíndromo");
+            else
+                Console.WriteLine("Não é um palíndromo");
+
             Console.ReadKey();
         }
 
