@@ -26,7 +26,7 @@ namespace FT03
 
             Recta r1 = new Recta(p1,p2);
             Recta r2 = new Recta(r1);
-            Console.WriteLine(r2.toString());
+            Console.WriteLine(r1.toString());
 
             Console.ReadKey();
         }
