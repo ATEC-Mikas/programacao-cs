@@ -77,6 +77,18 @@ namespace FT03
         {
             return (hora.ToString() + ":" + min.ToString() + ":" + seg.ToString());
         }
-       
+        public int difEntre2Horas(Hora h)
+        {
+            float[] dif = { 0, 0 };
+            dif[0] += seg;
+            dif[0] += min * 60;
+            dif[0] += hora * 60 * 60;
+            dif[1] += h.seg;
+            dif[1] += h.min * 60;
+            dif[1] += h.hora * 60 * 60;
+
+
+            return int.Parse(Math.Round(Math.Abs((dif[0] - dif[1]) / (60 * 60))).ToString());
+        }
     }
 }

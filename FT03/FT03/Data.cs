@@ -22,7 +22,7 @@ namespace FT03
             diasem = "segunda-feira";
             hora = new Hora();
         }
-        public Data(int dia,int mes,int ano, int diasem)
+        public Data(int dia,int mes,int ano, int diasem, int hora,int minuto,int segundo)
         {
             if (!setAno(ano))
                 ano = 2000;
@@ -32,6 +32,19 @@ namespace FT03
                 dia = 1;
             if (!setDiasem(diasem))
                 setDiasem(1);
+            this.hora = new Hora(hora,minuto,segundo);
+        }
+        public Data(int dia, int mes, int ano, int diasem,Hora hora)
+        {
+            if (!setAno(ano))
+                ano = 2000;
+            if (!setMes(mes))
+                mes = 1;
+            if (!setDia(dia))
+                dia = 1;
+            if (!setDiasem(diasem))
+                setDiasem(1);
+            this.hora = new Hora(hora);
         }
         public Data(Data d)
         {
@@ -39,8 +52,12 @@ namespace FT03
             mes = d.mes;
             ano = d.ano;
             diasem = d.diasem;
+            hora = new Hora(d.hora);
         }
-
+        public Hora getHora()
+        {
+            return hora;
+        }
         public int getDia()
         {
             return dia;
@@ -233,6 +250,14 @@ namespace FT03
         public string toString()
         {
             return (dia.ToString() + "/" + mes.ToString() + "/" + ano.ToString() + " " + hora.toString());
+        }
+        public int difEntre2Anos(Data d)
+        {
+            int maior = -1;
+            if (d.mes >= mes && d.dia >= dia)
+                    maior = 0;
+                    
+            return (d.ano-ano)+maior;
         }
     }
 }
