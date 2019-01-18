@@ -16,14 +16,16 @@ namespace FT04
             ArrayList gerentes =new ArrayList();
             ArrayList operarios = new ArrayList();
 
+            if (!File.Exists("Gerentes.txt"))
+                File.Create("Gerentes.txt").Close();
             StreamReader rdgerentes = new StreamReader(@"Gerentes.txt");
             while(!rdgerentes.EndOfStream)
             {
                 string linha = rdgerentes.ReadLine();
                 linha = linha.Replace('/', ';');
                 string[] atributos = linha.Split(';');
-                foreach (string teste in atributos)
-                    Console.WriteLine(teste);
+                //foreach (string teste in atributos)
+                //    Console.WriteLine(teste);
                 if(atributos.Length==9)
                 {
                     gerentes.Add(new Gerente(
@@ -43,6 +45,8 @@ namespace FT04
             rdgerentes.Close();
 
             // TODO ARRANJAR OPERARIOS IGUAL A GERENTE
+            if (!File.Exists("Operarios.txt"))
+                File.Create("Operarios.txt").Close();
 
             StreamReader rdoperarios = new StreamReader(@"Operarios.txt");
             while (!rdoperarios.EndOfStream)
@@ -50,29 +54,47 @@ namespace FT04
                 string linha = rdoperarios.ReadLine();
                 linha = linha.Replace('/', ';');
                 string[] atributos = linha.Split(';');
-                operarios.Add(new Operario(
-                                         int.Parse(atributos[0]),
-                                         atributos[1],
-                                         atributos[2],
-                                         double.Parse(atributos[3]),
-                                         int.Parse(atributos[4]),
-                                         int.Parse(atributos[5]),
-                                         int.Parse(atributos[6]),
-                                         atributos[7]
-                                        ));
+                //foreach (string teste in atributos)
+                //    Console.WriteLine(teste);
+                if(atributos.Length==8)
+                {
+                    operarios.Add(new Operario(
+                                             int.Parse(atributos[0]),
+                                             atributos[1],
+                                             atributos[2],
+                                             double.Parse(atributos[3]),
+                                             int.Parse(atributos[4]),
+                                             int.Parse(atributos[5]),
+                                             int.Parse(atributos[6]),
+                                             atributos[7]
+                                            ));
+                    Console.WriteLine("Operario processado.");
+                }
             }
             rdoperarios.Close();
 
+            Console.ReadKey();
 
 
             Gerente g1=new Gerente(1,"diogo","diogo@neves",7.2,24,5,1990,"Tijolos",2);
-            Console.WriteLine("\n\n" + g1.toString());
+            //Console.WriteLine("\n\n" + g1.toString());
             Operario o1 = new Operario(2,"Teste","teste@neves",2,2,3,1990,"Departamento Tijoleiro");
-            Console.WriteLine("\n\n"+o1.toString());
+            //Console.WriteLine("\n\n"+o1.toString());
 
             gerentes.Add(g1);
             operarios.Add(o1);
 
+            foreach (Gerente obj in gerentes)
+            {
+                Console.WriteLine("\n"+obj.toString());
+            }
+
+            foreach (Operario obj in operarios)
+            {
+                Console.WriteLine("\n"+obj.toString());
+            }
+
+            Console.ReadKey();
 
             Console.WriteLine("---------------------------------\n\nLog files...\n\n-----------------------------------");
 

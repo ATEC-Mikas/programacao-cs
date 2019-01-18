@@ -254,9 +254,11 @@ namespace FT03
         public int difEntre2Anos(Data d)
         {
             int maior = -1;
-            if (d.mes >= mes && d.dia >= dia)
-                    maior = 0;
-                    
+            if (d.mes > mes)
+                maior = 0;
+            if (d.mes == mes && d.dia >= dia)
+                maior = 0;
+
             return (d.ano-ano)+maior;
         }
     }
