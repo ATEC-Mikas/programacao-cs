@@ -112,6 +112,14 @@ namespace FT04
         {
             return dataNasc;
         }
+        public bool setDataNascimento(int dia, int mes, int ano)
+        {
+            return (dataNasc.setAno(ano) && dataNasc.setMes(mes) && dataNasc.setDia(dia));
+        }
+        public bool setDataNascimento(Data d)
+        {
+            return (dataNasc.setAno(d.getAno()) && dataNasc.setMes(d.getMes()) && dataNasc.setDia(d.getDia()));
+        }
         public int calcularIdade()
         {
             int ano = int.Parse(DateTime.Now.Year.ToString());
