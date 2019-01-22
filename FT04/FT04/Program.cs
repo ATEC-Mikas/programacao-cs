@@ -64,24 +64,24 @@ namespace FT04
             Console.WriteLine("O/a " + erro + " que introduziu é invalido");
         }
 
-        static void Main(string[] args)
+        public static ArrayList carregarGerentes(ArrayList gerentes, bool logs)
         {
-            ArrayList gerentes =new ArrayList();
-            ArrayList operarios = new ArrayList();
             int cont = 0;
-
-
             if (!File.Exists("Gerentes.txt"))
                 File.Create("Gerentes.txt").Close();
             StreamReader rdgerentes = new StreamReader(@"Gerentes.txt");
-            while(!rdgerentes.EndOfStream)
+            while (!rdgerentes.EndOfStream)
             {
+
                 string linha = rdgerentes.ReadLine();
                 linha = linha.Replace('/', ';');
                 string[] atributos = linha.Split(';');
-                //foreach (string teste in atributos)
-                //    Console.WriteLine(teste);
-                if(atributos.Length==9)
+                if(logs)
+                {
+                    foreach (string teste in atributos)
+                        Console.WriteLine(teste);
+                }
+                if (atributos.Length == 9)
                 {
                     gerentes.Add(new Gerente(
                                              int.Parse(atributos[0]),
@@ -97,23 +97,30 @@ namespace FT04
                     cont++;
                 }
             }
-                    Console.WriteLine(cont +" Gerente(s) processado(s).");
+            if(logs)
+                Console.WriteLine(cont + " Gerente(s) processado(s).");
             rdgerentes.Close();
+            return gerentes;
+        }
 
-    
+        public static ArrayList carregarOperarios(ArrayList operarios,bool logs)
+        {
+            int cont = 0;
             if (!File.Exists("Operarios.txt"))
                 File.Create("Operarios.txt").Close();
 
-            cont = 0;
             StreamReader rdoperarios = new StreamReader(@"Operarios.txt");
             while (!rdoperarios.EndOfStream)
             {
                 string linha = rdoperarios.ReadLine();
                 linha = linha.Replace('/', ';');
                 string[] atributos = linha.Split(';');
-                //foreach (string teste in atributos)
-                //    Console.WriteLine(teste);
-                if(atributos.Length==8)
+                if(logs)
+                {
+                    foreach (string teste in atributos)
+                        Console.WriteLine(teste);
+                }
+                if (atributos.Length == 8)
                 {
                     operarios.Add(new Operario(
                                              int.Parse(atributos[0]),
@@ -128,11 +135,66 @@ namespace FT04
                     cont++;
                 }
             }
-            Console.WriteLine(cont + " Operario(s) processado(s).");
+            if(logs)
+                Console.WriteLine(cont + " Operario(s) processado(s).");
             rdoperarios.Close();
 
-            Console.ReadKey();
-            Console.Clear();
+            return operarios;
+        }
+
+        public static int guardarGerentes(ArrayList gerentes,bool logs)
+        {
+            int cont = 0;
+            StreamWriter wdgerentes = new StreamWriter(@"Gerentes.txt");
+
+            foreach (Gerente obj in gerentes)
+            {
+                string linha = obj.getId().ToString() + ";"
+                             + obj.getNome() + ";"
+                             + obj.getEmail() + ";"
+                             + obj.getValorHora().ToString() + ";"
+                             + obj.getDataNascimento().toString() + ";"
+                             + obj.getEspecialidade() + ";"
+                             + obj.getExtensao().ToString()
+                             ;
+                wdgerentes.WriteLine(linha);
+                cont++;
+            }
+            if(logs)
+                Console.WriteLine(cont + " Gerente(s) guardado(s).");
+            wdgerentes.Close();
+            return cont;
+        }
+
+        public static int guardarOperarios(ArrayList operarios,bool logs)
+        {
+            int cont = 0;
+            StreamWriter wdoperarios = new StreamWriter(@"Operarios.txt");
+            foreach (Operario obj in operarios)
+            {
+                string linha = obj.getId().ToString() + ";"
+                             + obj.getNome() + ";"
+                             + obj.getEmail() + ";"
+                             + obj.getValorHora().ToString() + ";"
+                             + obj.getDataNascimento().toString() + ";"
+                             + obj.getDepartamento()
+                             ;
+                wdoperarios.WriteLine(linha);
+                cont++;
+            }
+            if(logs)
+                Console.WriteLine(cont + " Operario(s) guardado(s).");
+            wdoperarios.Close();
+            return cont;
+        }
+
+        static void Main(string[] args)
+        {
+            ArrayList gerentes =new ArrayList();
+            ArrayList operarios = new ArrayList();
+
+            gerentes = carregarGerentes(gerentes, false);
+            operarios = carregarOperarios(operarios, false);
 
             int opc = 0;
             bool flag = true;
@@ -193,27 +255,28 @@ namespace FT04
                         Console.WriteLine("Digite o Departamento:");
                         while (!op.setDepartamento(Console.ReadLine()))
                             erro("departamento");
+                        Console.WriteLine("Digite a data (DD/MM/AAAA):");
+                        op.setDataNascimento(lerData());
                         operarios.Add(op);
                         break;
                     case 3:
                         gerentes=menuGerentes(gerentes);
                         break;
                     case 4:
-                        foreach (Operario obj in operarios)
-                        {
-                            Console.WriteLine("\n" + obj.toString());
-                        }
-                        Console.ReadKey();
+                        operarios=menuOperarios(operarios);
                         break;
                     case 5:
+                        Console.WriteLine("\nGerentes:\n");
                         foreach (Gerente obj in gerentes)
                         {
                             Console.WriteLine("\n" + obj.toString());
                         }
+                        Console.WriteLine("\nOperarios:\n");
                         foreach (Operario obj in operarios)
                         {
                             Console.WriteLine("\n" + obj.toString());
                         }
+                        Console.WriteLine("\n\nClique numa tecla para voltar ao menu...");
                         Console.ReadKey();
                         break;
                     case 0:
@@ -226,48 +289,136 @@ namespace FT04
 
 
             Console.WriteLine("A sair do programa...");
-            Console.ReadKey();
+
+            bool logs = false;
+
+            if(logs)
                 Console.WriteLine("\n---------------------------------\n\nLog files...\n\n-----------------------------------");
 
-            cont = 0;
-            StreamWriter wdgerentes = new StreamWriter(@"Gerentes.txt");
-            
-            foreach (Gerente obj in gerentes)
+            guardarGerentes(gerentes, logs);
+            guardarOperarios(operarios, logs);
+
+
+            if(logs)
+                Console.ReadKey();
+
+        }
+        public static ArrayList menuOperarios(ArrayList operarios)
+        {
+            int i;
+            int opc = 0;
+
+            while (true)
             {
-                string linha = obj.getId().ToString() + ";"
-                             + obj.getNome() + ";"
-                             + obj.getEmail() + ";"
-                             + obj.getValorHora().ToString() + ";"
-                             + obj.getDataNascimento().toString() + ";"
-                             + obj.getEspecialidade() + ";"
-                             + obj.getExtensao().ToString()
-                             ;
-                wdgerentes.WriteLine(linha);
-                cont++;
+                i = 0;
+                Console.Clear();
+                Console.WriteLine("Editar Operario:");
+                foreach (Operario obj in operarios)
+                {
+                    Console.WriteLine((i + 1) + " - " + obj.getNome());
+                    i++;
+                }
+                Console.WriteLine("\n0 - Sair");
+                opc = lerInt();
+                if (opc == 0)
+                    break;
+                if (opc <= i && opc > 0)
+                    operarios[opc - 1] = menuEditarOperario((Operario)operarios[opc - 1]);
             }
-            Console.WriteLine(cont + " Gerente(s) guardado(s).");
-            wdgerentes.Close();
-            cont = 0;
-            StreamWriter wdoperarios = new StreamWriter(@"Operarios.txt");
-            foreach (Operario obj in operarios)
+
+            //Console.ReadKey();
+            return operarios;
+        }
+        public static Operario menuEditarOperario(Operario operario)
+        {
+            int opc = 0;
+            bool flag = true;
+            while (flag)
             {
-                string linha = obj.getId().ToString() + ";"
-                             + obj.getNome() + ";"
-                             + obj.getEmail() + ";"
-                             + obj.getValorHora().ToString() + ";"
-                             + obj.getDataNascimento().toString() + ";"
-                             + obj.getDepartamento()
-                             ;
-                wdoperarios.WriteLine(linha);
-                cont++;
+                Console.Clear();
+                Console.WriteLine("1 - Nº Identificador: " + operario.getId().ToString());
+                Console.WriteLine("2 - Nome: " + operario.getNome());
+                Console.WriteLine("3 - Email: " + operario.getEmail());
+                Console.WriteLine("4 - Valor Hora: " + operario.getValorHora().ToString());
+                Console.WriteLine("5 - Departamento: " + operario.getDepartamento());
+                Console.WriteLine("6 - Data de Nascimento: " + operario.getDataNascimento().toString());
+                Console.WriteLine("7 - Calcular Idade");
+                Console.WriteLine("8 - Calcular Salário");
+                Console.WriteLine("\n0 - Sair");
+                opc = lerInt();
+                switch (opc)
+                {
+                    case 0:
+                        flag = false;
+                        break;
+                    case 1:
+                        Console.WriteLine("Digite o Numero Identificador:");
+                        if (!operario.setId(lerInt()))
+                        {
+                            erro("numero identifcador");
+                            Console.ReadKey();
+                        }
+                        break;
+                    case 2:
+                        Console.WriteLine("Digite o Nome:");
+                        if (!operario.setNome(Console.ReadLine()))
+                        {
+                            erro("nome");
+                            Console.ReadKey();
+                        }
+                        break;
+                    case 3:
+                        Console.WriteLine("Digite o Email:");
+                        if (!operario.setEmail(Console.ReadLine()))
+                        {
+                            erro("email");
+                            Console.ReadKey();
+                        }
+                        break;
+                    case 4:
+                        Console.WriteLine("Digite o Valor por hora:");
+                        if (!operario.setValorHora(lerDouble()))
+                        {
+                            erro("valor hora");
+                            Console.ReadKey();
+                        }
+                        break;
+                    case 5:
+                        Console.WriteLine("Digite o Departamento:");
+                        if (!operario.setDepartamento(Console.ReadLine()))
+                        {
+                            erro("departamento");
+                            Console.ReadKey();
+                        }
+                        break;
+                    case 6:
+                        Console.WriteLine("Digite a data(DD/MM/AAAA):");
+                        if (!operario.setDataNascimento(lerData()))
+                        {
+                            erro("data de nascimento errada");
+                            Console.ReadKey();
+                        }
+                        break;
+                    case 7:
+                        Console.WriteLine("Idade do " + operario.getNome()+": "+operario.calcularIdade().ToString());
+                        Console.WriteLine("\n\nClique numa tecla para continuar...");
+                        Console.ReadKey();
+                        break;
+                    case 8:
+                        Console.WriteLine("Indique o número de horas que trabalhou: ");
+                        double r;
+                        do
+                        {
+                            r = operario.calcSal(lerDouble());
+                            if (r == -1)
+                                Console.WriteLine("Numero invalido\n");
+                        } while (r == -1);
+                        Console.WriteLine("Salário bruto sem subsídios: " + r.ToString()+"€");
+                        Console.ReadKey();
+                        break;
+                }
             }
-            Console.WriteLine(cont + " Operario(s) guardado(s).");
-            wdoperarios.Close();
-
-
-
-
-            Console.ReadKey();
+            return operario;
         }
         public static ArrayList menuGerentes(ArrayList gerentes)
         {
@@ -309,6 +460,8 @@ namespace FT04
                 Console.WriteLine("5 - Especialidade: " + gerente.getEspecialidade());
                 Console.WriteLine("6 - Extensão: " + gerente.getExtensao().ToString());
                 Console.WriteLine("7 - Data de Nascimento: " + gerente.getDataNascimento().toString());
+                Console.WriteLine("8 - Calcular Idade");
+                Console.WriteLine("9 - Calcular Salário");
                 Console.WriteLine("\n0 - Sair");
                 opc = lerInt();
                 switch(opc)
@@ -371,6 +524,23 @@ namespace FT04
                             erro("data de nascimento errada");
                             Console.ReadKey();
                         }
+                        break;
+                    case 8:
+                        Console.WriteLine("Idade do " + gerente.getNome() + ": " + gerente.calcularIdade().ToString());
+                        Console.WriteLine("\n\nClique numa tecla para continuar...");
+                        Console.ReadKey();
+                        break;
+                    case 9:
+                        Console.WriteLine("Indique o número de horas que trabalhou: ");
+                        double r;
+                        do
+                        {
+                            r = gerente.calcSal(lerDouble());
+                            if (r == -1)
+                                Console.WriteLine("Numero invalido\n");
+                        } while (r == -1);
+                        Console.WriteLine("Salário bruto sem subsídios: " + r.ToString() + "€");
+                        Console.ReadKey();
                         break;
                 }
             }

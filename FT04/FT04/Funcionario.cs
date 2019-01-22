@@ -129,7 +129,9 @@ namespace FT04
         }
         public double calcSal(double h)
         {
-            return h * valorHora;
+            if(h>0)
+                return h * valorHora;
+            return -1;
         }
     }
 }
