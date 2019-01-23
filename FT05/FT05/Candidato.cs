@@ -150,6 +150,10 @@ namespace FT05
                 return "nenhum/indefenido";
             return "erro";
         }
+        public char getSexo(bool original)
+        {
+            return sexo;
+        }
         public bool setEmail(string e)
         {
             if(validarString(e))
@@ -176,9 +180,10 @@ namespace FT05
         {
             return telefone;
         }
+
         public bool adicionarHabilitacao(string h)
         {
-            if(validarString(h) && int.Parse(habilitacao[0]) < 3)
+            if(validarString(h) && disponibilidadeHabilitacao())
             {
                 habilitacao[0]= (int.Parse(habilitacao[0])+1).ToString();
                 habilitacao[int.Parse(habilitacao[0])] = h;
@@ -196,9 +201,20 @@ namespace FT05
             }
             return false;
         }
+        public bool disponibilidadeHabilitacao()
+        {
+            if (int.Parse(habilitacao[0]) < 3)
+                return true;
+            return false;
+        }
+        public string[] getHabilitacoes()
+        {
+            return habilitacao;
+        }
+
         public bool adicionarExperiencia(string e)
         {
-            if(validarString(e) && int.Parse(experiencia[0]) < 6)
+            if(validarString(e) && disponibilidadeExperiencia())
             {
                 experiencia[0] = (int.Parse(experiencia[0]) + 1).ToString();
                 experiencia[int.Parse(experiencia[0])] = e;
@@ -216,9 +232,20 @@ namespace FT05
             }
             return false;
         }
+        public bool disponibilidadeExperiencia()
+        {
+            if (int.Parse(experiencia[0]) < 5)
+                return true;
+            return false;
+        }
+        public string[] getExperiencias()
+        {
+            return experiencia;
+        }
+
         public bool adicionarCompetencia(string c)
         {
-            if (validarString(c) && int.Parse(competencia[0]) < 6)
+            if (validarString(c) && disponibilidadeCompetencia())
             {
                 competencia[0] = (int.Parse(competencia[0]) + 1).ToString();
                 competencia[int.Parse(competencia[0])] = c;
@@ -236,6 +263,17 @@ namespace FT05
             }
             return false;
         }
+        public bool disponibilidadeCompetencia()
+        {
+            if (int.Parse(competencia[0]) < 5)
+                return true;
+            return false;
+        }
+        public string[] getCompetencias()
+        {
+            return competencia;
+        }
+
         public string toString()
         {
             string r =  "Nome: " + nome
