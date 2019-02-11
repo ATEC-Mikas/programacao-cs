@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{44E98081-8657-439F-AC29-996FFD9BD915}</ProjectGuid>
+    <ProjectGuid>{B25FA393-0CEE-4A15-9F5A-B9DF26AB2C3A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>FT_07</RootNamespace>
-    <AssemblyName>FT-07</AssemblyName>
+    <RootNamespace>projeto</RootNamespace>
+    <AssemblyName>projeto</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,8 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abastecimento.cs" />
-    <Compile Include="Carro.cs" />
+    <Compile Include="Chave.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

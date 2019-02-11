@@ -10,7 +10,7 @@ namespace FT_07
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Class only :)");
             Console.ReadKey();
         }
     }
