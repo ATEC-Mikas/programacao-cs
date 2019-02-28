@@ -46,6 +46,7 @@ namespace Git_Client
 
         private void EstadoGit_Click(object sender, EventArgs e)
         {
+            bool estado = false;
             listView1.Items.Clear();
             if(Repo!=null)
             {
@@ -54,36 +55,46 @@ namespace Git_Client
                     ListViewItem item = new ListViewItem(t.FilePath);
                     item.BackColor = Color.OrangeRed;
                     listView1.Items.Add(item);
+                    estado = true;
                 }
                 foreach (StatusEntry t in Repo.RetrieveStatus().Modified)
                 {
                     ListViewItem item = new ListViewItem(t.FilePath);
                     item.BackColor = Color.PaleVioletRed;
                     listView1.Items.Add(item);
+                    estado = true;
                 }
                 foreach (StatusEntry t in Repo.RetrieveStatus().RenamedInIndex)
                 {
                     ListViewItem item = new ListViewItem(t.FilePath);
                     item.BackColor = Color.LightGreen;
                     listView1.Items.Add(item);
+                    estado = true;
                 }
                 foreach (StatusEntry t in Repo.RetrieveStatus().RenamedInWorkDir)
                 {
                     ListViewItem item = new ListViewItem(t.FilePath);
                     item.BackColor = Color.LightGreen;
                     listView1.Items.Add(item);
+                    estado = true;
                 }
                 foreach (StatusEntry t in Repo.RetrieveStatus().Staged)
                 {
                     ListViewItem item = new ListViewItem(t.FilePath);
                     item.BackColor = Color.Green;
                     listView1.Items.Add(item);
+                    estado = true;
                 }
                 foreach (StatusEntry t in Repo.RetrieveStatus().Added)
                 {
                     ListViewItem item = new ListViewItem(t.FilePath);
                     item.BackColor = Color.LightGreen;
                     listView1.Items.Add(item);
+                    estado = true;
+                }
+                if(estado)
+                {
+                    btnCommit.Enabled = true;
                 }
             } else
             {
@@ -110,10 +121,19 @@ namespace Git_Client
             {
                 Signature sign= new Signature(System.Security.Principal.WindowsIdentity.GetCurrent().Name, Environment.MachineName,DateTimeOffset.Now);
                 Repo.Commit(txtCommit.Text, sign, sign);
+                txtCommit.Text = String.Empty;
+                btnCommit.Enabled = false;
+                EstadoGit.PerformClick();
             } else
             {
                 MessageBox.Show("Mensagem de commit inválida!");
             }
+        }
+
+        private void pushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Remote remote = Repo.Network.Remotes["origin"];
+            PushOptions push = new PushOptions();
         }
     }
 }

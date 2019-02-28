@@ -38,6 +38,7 @@
             this.AddAll = new System.Windows.Forms.ToolStripMenuItem();
             this.txtCommit = new System.Windows.Forms.TextBox();
             this.btnCommit = new System.Windows.Forms.Button();
+            this.pushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +65,8 @@
             this.ficheiroToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AbrirFolder,
             this.EstadoGit,
-            this.AddAll});
+            this.AddAll,
+            this.pushToolStripMenuItem});
             this.ficheiroToolStripMenuItem.Name = "ficheiroToolStripMenuItem";
             this.ficheiroToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.ficheiroToolStripMenuItem.Text = "Ficheiro";
@@ -114,6 +116,7 @@
             // 
             // btnCommit
             // 
+            this.btnCommit.Enabled = false;
             this.btnCommit.Location = new System.Drawing.Point(451, 137);
             this.btnCommit.Name = "btnCommit";
             this.btnCommit.Size = new System.Drawing.Size(75, 23);
@@ -121,6 +124,13 @@
             this.btnCommit.Text = "Commit";
             this.btnCommit.UseVisualStyleBackColor = true;
             this.btnCommit.Click += new System.EventHandler(this.btnCommit_Click);
+            // 
+            // pushToolStripMenuItem
+            // 
+            this.pushToolStripMenuItem.Name = "pushToolStripMenuItem";
+            this.pushToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pushToolStripMenuItem.Text = "Push";
+            this.pushToolStripMenuItem.Click += new System.EventHandler(this.pushToolStripMenuItem_Click);
             // 
             // frmPrincipal
             // 
@@ -156,6 +166,7 @@
         private System.Windows.Forms.ToolStripMenuItem AddAll;
         private System.Windows.Forms.TextBox txtCommit;
         private System.Windows.Forms.Button btnCommit;
+        private System.Windows.Forms.ToolStripMenuItem pushToolStripMenuItem;
     }
 }
 
