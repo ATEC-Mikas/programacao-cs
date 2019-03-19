@@ -477,18 +477,19 @@ namespace projeto
                 return;
             }
             Console.WriteLine("Acertou em "+(match.Count-1)+" numero(s)");
+            Console.Write("Numeros: ");
             bool flag = false;
             foreach(int n in match)
             {
                 if(n==-1)
                     if(flag)
-                        Console.Write(" | Estrelas:");
+                        Console.Write(" | Estrelas: ");
                     else
-                        Console.Write("Estrelas:");
+                        Console.Write("Estrelas: ");
                 else
                 {
                     flag = true;
-                    Console.WriteLine(n+" ");
+                    Console.Write(n+" ");
                 }
             }
             Console.ReadKey();
